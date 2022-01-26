@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var billAmountTextField: UITextField!
     
@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        billAmountTextField.delegate = self
     }
 
     @IBAction func calculateTip(_ sender: Any) {
@@ -34,6 +34,11 @@ class ViewController: UIViewController {
         
         totalLabel.text = String(format: "$%.2f", total)
     }
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        billAmountTextField.resignFirstResponder()
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        calculateTip(tipControl!)
+    }
 }
 
